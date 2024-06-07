@@ -24,7 +24,7 @@ install:
     New-Item -ItemType Directory -Force -Path C:\ovs-build-downloads
 
     # Find and download the latest stable OpenSSl 3.0.
-    $URL = "https://gist.github.com/OwenMcDonnell/294ae3ba50b8b13b5d31d1fe3b4d5702/raw"
+    $URL = "https://gist.github.com/OwenMcDonnell/294ae3ba50b8b13b5d31d1fe3b4d5702/raw/win32_openssl_hashes.json"
     $webData = (Invoke-WebRequest -Uri $URL).content | ConvertFrom-Json
     $source = ($webData.files.PSObject.Properties | Where-Object {
         $_.Value.basever   -match "^3\.0\.[0-9]+" -and
