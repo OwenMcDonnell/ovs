@@ -16,6 +16,7 @@ init:
 
 cache:
 - C:\ovs-build-downloads -> appveyor.yml
+- C:\ovs-build-downloads
 
 install:
 - ps: |
@@ -26,7 +27,7 @@ install:
     $URL = "https://raw.githubusercontent.com/slproweb/opensslhashes/master/win32_openssl_hashes.json"
     $webData = (Invoke-WebRequest -Uri $URL).content | ConvertFrom-Json
     $source = ($webData.files.PSObject.Properties | Where-Object {
-        $_.Value.basever   -match "^3\.0\.[0-9]+" -and
+        $_.Value.basever   -match "^3\.0\.[0-3]+" -and
         $_.Value.bits      -eq    "64"            -and
         $_.Value.arch      -eq    "INTEL"         -and
         $_.Value.installer -eq    "exe"           -and
@@ -62,18 +63,4 @@ install:
         ".ci/windows-prepare.sh 2>&1"
 
 build_script:
-- ps: C:\msys64\msys2_shell.cmd -here -defterm -no-start -use-full-path -c
-        ".ci/windows-build.sh $env:CONFIGURATION 2>&1"
-- ps: cp C:\PTHREADS-BUILT\bin\pthreadVC3.dll C:\openvswitch\usr\bin
-- ps: cp C:\PTHREADS-BUILT\bin\pthreadVC3.dll C:\openvswitch\usr\sbin
-- ps: mkdir C:\openvswitch\driver
-- ps: cp datapath-windows\x64\Win10$env:CONFIGURATION\package\* C:\openvswitch\driver
-- ps: cp datapath-windows\x64\Win10$env:CONFIGURATION\package.cer C:\openvswitch\driver
-- ps: cp datapath-windows\misc\* C:\openvswitch\driver
-- ps: cp windows\ovs-windows-installer\bin\x64\Release\OpenvSwitch.msi
-         c:\OpenvSwitch-$env:CONFIGURATION.msi
-
-after_build:
-- ps: 7z a C:\ovs-main-$env:CONFIGURATION.zip C:\openvswitch
-- ps: Push-AppveyorArtifact C:\ovs-main-$env:CONFIGURATION.zip
-- ps: Push-AppveyorArtifact C:\OpenvSwitch-$env:CONFIGURATION.msi
+- ps: Write-Host "building..."
