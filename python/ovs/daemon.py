@@ -18,7 +18,6 @@ import signal
 import sys
 import time
 
-
 import ovs.dirs
 import ovs.fatal_signal
 import ovs.process
