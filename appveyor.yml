@@ -15,8 +15,8 @@ init:
                               -Value "C:\Python312-x64\python.exe"
 
 cache:
-- C:\ovs-build-downloads -> appveyor.yml
 - C:\ovs-build-downloads
+- C:\ovs-build-downloads -> appveyor.yml
 
 install:
 - ps: |
