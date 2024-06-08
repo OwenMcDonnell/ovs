@@ -16,7 +16,7 @@ init:
 
 cache:
 - C:\ovs-build-downloads -> appveyor.yml
-- C:\ovs-build-downloads
+# - C:\ovs-build-downloads
 
 install:
 - ps: |
